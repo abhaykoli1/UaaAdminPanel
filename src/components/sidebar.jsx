@@ -1,0 +1,154 @@
+import React, { useEffect, useState } from "react";
+import {
+  FaHome,
+  FaUser,
+  FaCog,
+  FaBars,
+  FaServicestack,
+  FaCreativeCommonsSampling,
+  FaUsers,
+  FaPhone,
+  FaBook,
+  FaDashcube,
+  FaSortNumericDown,
+  FaBlog,
+  FaProductHunt,
+  FaMagento,
+} from "react-icons/fa";
+
+const Sidebar = ({ onToggle }) => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+    onToggle(!isOpen);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 700) {
+        setIsOpen(false);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // // Check screen width and update isOpen state
+
+  return (
+    <div className={`sidebar ${isOpen ? "open" : "closed"} `}>
+      <div className="sidebarHeader">
+        <div className="toggle-btn" onClick={handleToggle}>
+          <FaBars />
+        </div>
+        <h2 className="logo"></h2>
+      </div>
+
+      <ul className="menu !scrollbar-hide">
+        <div className="Uaa">
+          <label className="Uaa">UAA </label>
+        </div>
+        <a href="/">
+          <li>
+            {" "}
+            <FaDashcube className="icon" />
+            {isOpen && <span>Dashboard</span>}
+          </li>
+        </a>
+        <a href="/addService">
+          <li>
+            {" "}
+            <FaServicestack className="icon" />
+            {isOpen && <span>Add Service</span>}
+          </li>
+        </a>
+
+        <a href="/addBlog">
+          <li>
+            <FaBlog className="icon" />
+            {isOpen && <span>Add Blog</span>}
+          </li>
+        </a>
+
+        <a href="/addSample">
+          <li>
+            <FaCreativeCommonsSampling className="icon" />
+            {isOpen && <span>Add Sample</span>}
+          </li>
+        </a>
+
+        <a href="/counters">
+          <li>
+            <FaSortNumericDown className="icon" />
+            {isOpen && <span>Add Counters</span>}
+          </li>
+        </a>
+        <a href="/home-queries">
+          <li>
+            <FaBook className="icon" />
+            {isOpen && <span>Home Queries</span>}
+          </li>
+        </a>
+        <a href="/contact-queries">
+          <li>
+            <FaPhone className="icon" />
+            {isOpen && <span>Contact Queries</span>}
+          </li>
+        </a>
+        <a href="/all-Users">
+          <li>
+            <FaUsers className="icon" />
+            {isOpen && <span>All Users</span>}
+          </li>
+        </a>
+
+        <div className="AvLable">
+          <label>AV </label>
+        </div>
+        <a href="/Av-Dashboard">
+          <li>
+            <FaDashcube className="icon" />
+            {isOpen && <span>AV Dashboard</span>}
+          </li>
+        </a>
+        <a href="/Av-Counters">
+          <li>
+            <FaSortNumericDown className="icon" />
+            {isOpen && <span>AV Counters</span>}
+          </li>
+        </a>
+        <a href="/Av-add-Product">
+          <li>
+            <FaProductHunt className="icon" />
+            {isOpen && <span>AV Add Product</span>}
+          </li>
+        </a>
+        <a href="/Av-add-Service">
+          <li>
+            <FaServicestack className="icon" />
+            {isOpen && <span>AV Add Service</span>}
+          </li>
+        </a>
+        <a href="/Av-add-Members">
+          <li>
+            <FaMagento className="icon" />
+            {isOpen && <span>AV Add Members</span>}
+          </li>
+        </a>
+        <a href="/Av-Contact-Queries">
+          <li>
+            <FaPhone className="icon" />
+            {isOpen && <span>AV Contact Queries</span>}
+          </li>
+        </a>
+      </ul>
+    </div>
+  );
+};
+
+export default Sidebar;
