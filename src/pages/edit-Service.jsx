@@ -16,6 +16,7 @@ export default function EditService() {
     shortDec: "",
     seo_title: "",
     seo_description: "",
+    seo_keywords: "",
     description: "",
     bannerImg: "",
     icon: "",
@@ -115,6 +116,17 @@ export default function EditService() {
             value={serviceData.seo_description}
             name="seo_description"
             placeholder="SEO Description"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>SEO Keywords :</label>
+          <input
+            className="add-service-input"
+            value={serviceData.seo_keywords}
+            name="seo_keywords"
+            placeholder="SEO Keywords"
             onChange={handleChange}
             required
           />

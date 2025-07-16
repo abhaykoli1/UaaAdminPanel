@@ -7,6 +7,7 @@ export default function AddService() {
   const [serviceData, setServiceData] = useState({
     seo_title: "",
     seo_description: "",
+    seo_keywords: "",
     title: "",
     shortDec: "",
     description: "",
@@ -66,6 +67,7 @@ export default function AddService() {
         setServiceData({
           seo_title: "",
           seo_description: "",
+          seo_keywords: "",
           title: "",
           shortDec: "",
           description: "",
@@ -112,6 +114,17 @@ export default function AddService() {
               value={serviceData.seo_description}
               name="seo_description"
               placeholder="SEO Description"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>SEO Keywords :</label>
+            <input
+              className="add-service-input"
+              value={serviceData.seo_keywords}
+              name="seo_keywords"
+              placeholder="SEO Keywords"
               onChange={handleChange}
               required
             />

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const AllSamples = () => {
   const [sample, setSample] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchSamples();
@@ -31,16 +32,13 @@ export const AllSamples = () => {
       )}"?`
     );
 
-    if (!isConfirmed) return; // If the user cancels, do nothing
+    if (!isConfirmed) return;
 
-    console.log(sampleTitle);
     try {
       setLoading(true);
-      const response = await axios.delete(
-        `${config.API_URL}/delete-sample/${sampleTitle}`
-      );
-      window.location.reload();
-      console.log("Sample deleted successfully:", response.data);
+      await axios.delete(`${config.API_URL}/delete-sample/${sampleTitle}`);
+      await fetchSamples(); // refresh instead of reload
+      console.log("Sample deleted successfully");
     } catch (error) {
       console.error(
         "Error deleting sample:",
@@ -52,11 +50,8 @@ export const AllSamples = () => {
   };
 
   const editSample = ({ sampleTitle }) => {
-    console.log(sampleTitle);
     navigate(`/edit-sample/${sampleTitle}`);
   };
-
-  const navigate = useNavigate();
 
   return (
     <div className="container">
@@ -69,36 +64,39 @@ export const AllSamples = () => {
       ) : (
         <div className="grid lg:!grid-cols-3 md:!grid-cols-2 !grid-cols-1">
           {sample.length > 0 ? (
-            sample.map((sample, index) => (
+            sample.map((sampleItem, index) => (
               <div key={index} className="card">
                 <a
                   target="_blank"
-                  href={`https://uniacademicassistance.in/sample/${sample.seo_title}`}
+                  rel="noopener noreferrer"
+                  title="Sample"
+                  href={`https://uniacademicassistance.in/sample/${sampleItem.seo_title}`}
                 >
                   <img
-                    src={sample.sample.file}
-                    alt={sample.sample.seo_title}
+                    src={sampleItem?.file}
+                    alt={sampleItem.moduleName || ""}
                     className="card-img"
                   />
+
                   <div className="card-header">
-                    <h3 className="card-title">{sample.sample.seo_title}</h3>
+                    <h3 className="card-title">{sampleItem.moduleName}</h3>
                   </div>
-                  <div className="card-content">
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: sample.sample.description,
-                      }}
-                      className="card-description line-clamp"
-                    />
-                  </div>
+                  {sampleItem.description && (
+                    <div className="card-content">
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: sampleItem.description,
+                        }}
+                        className="card-description line-clamp"
+                      />
+                    </div>
+                  )}
                 </a>
                 <div className="card-footer">
                   <button
                     className="btn edit-btn"
                     onClick={() =>
-                      editSample({
-                        sampleTitle: sample.seo_title,
-                      })
+                      editSample({ sampleTitle: sampleItem.seo_title })
                     }
                   >
                     Edit
@@ -106,7 +104,7 @@ export const AllSamples = () => {
                   <button
                     className="btn delete-btn"
                     onClick={() =>
-                      deleteSample({ sampleTitle: sample.seo_title })
+                      deleteSample({ sampleTitle: sampleItem.seo_title })
                     }
                   >
                     Delete

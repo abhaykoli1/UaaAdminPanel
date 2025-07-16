@@ -31,6 +31,8 @@ import AvEditService from "./AV_Pages/edit-Service";
 import AvEditProduct from "./AV_Pages/edit-Product";
 import AvEditMember from "./AV_Pages/edit-Member";
 import AvContactQueries from "./AV_Pages/AvContactQuery";
+import AddSampleCategory from "./pages/addSampleCategory";
+import SampleCategoryManager from "./pages/sampleCategory";
 
 function App() {
   let isLoggedIn = sessionStorage.getItem("isLogin");
@@ -58,6 +60,8 @@ function App() {
 
         <Route path="addService" element={<AddService />} />
         <Route path="all-Services" element={<AllServices />} />
+        <Route path="add-Sample-Category" element={<AddSampleCategory />} />
+        <Route path="Sample-Category" element={<SampleCategoryManager />} />
 
         <Route path="edit-service/:serviceTitle" element={<EditService />} />
 

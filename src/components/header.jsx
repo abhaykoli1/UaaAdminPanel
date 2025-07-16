@@ -11,6 +11,8 @@ const Header = ({ isSidebarOpen }) => {
         return "Add UAA Service";
       case "/addSample":
         return "Add UAA Sample";
+      case "/Sample-Category":
+        return "Sample Category";
       case "/addBlog":
         return "Add UAA Blog";
       case "/all-Samples":
@@ -63,9 +65,9 @@ const Header = ({ isSidebarOpen }) => {
   return (
     <header
       style={{ zIndex: "1" }}
-      className={`header ${!isSidebarOpen ? "shifted" : ""}`}
+      className={` header  ${!isSidebarOpen ? "shifted" : ""}`}
     >
-      <h2>{getTitle()}</h2>
+      <h2 className="font-bold text-xl mt-4">{getTitle()}</h2>
       <div className="user-profile">
         {/* <FaUserCircle className="user-icon" />
         <span>Admin</span> */}

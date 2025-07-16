@@ -5,11 +5,28 @@ import config from "../config";
 import { Editor } from "@tinymce/tinymce-react";
 
 export default function EditSample() {
+  const [categories, setCategories] = useState([]);
+
+  console.log(categories);
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${config.API_URL}/all-category`);
+      setCategories(response.data.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
   const { seo_title } = useParams(); // Get seo_title from URL params
   console.log("seo_title", seo_title.replace(/-/g, " "));
+
   const [sampleData, setSampleData] = useState({
     seo_title: "",
     seo_description: "",
+    seo_keywords: "",
     pageCount: "",
     moduleName: "",
     moduleCode: "",
@@ -17,11 +34,12 @@ export default function EditSample() {
     description: "",
     sample_category: "",
     price: "",
+    sample_file: "",
     file: "",
-    fileimages: [], // Multiple image URLs
+    fileimages: [],
   });
 
-  console.log(sampleData);
+  console.log("sampleData :", sampleData);
 
   useEffect(() => {
     const fetchSample = async () => {
@@ -34,6 +52,7 @@ export default function EditSample() {
           setSampleData({
             ...response.data.data,
             fileimages: response.data.data.fileimages || [],
+            sample_category: response.data.data.sample_category?._id,
           });
         }
       } catch (error) {
@@ -44,6 +63,47 @@ export default function EditSample() {
 
     fetchSample();
   }, [seo_title]);
+
+  //for pdf
+  const handleChange2 = async (e) => {
+    const { name, files, value } = e.target;
+
+    if (name === "sample_file" && files.length > 0) {
+      const file = files[0];
+      const fileUrl = await uploadPdf(file);
+      if (fileUrl) {
+        setSampleData((prevData) => ({
+          ...prevData,
+          sample_file: fileUrl,
+        }));
+      }
+    } else {
+      setSampleData((prevData) => ({ ...prevData, [name]: value }));
+    }
+  };
+
+  const uploadPdf = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("sample_file", file); // ✅ must match FastAPI
+
+      const response = await axios.post(
+        `${config.API_URL}/upload-pdf`, // ✅ new endpoint
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return response.data.file_url || "";
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      alert("File upload failed");
+      return "";
+    }
+  };
 
   const handleChange = async (e) => {
     const { name, value, files } = e.target;
@@ -157,7 +217,18 @@ export default function EditSample() {
           />
         </div>
         <div>
-          <label>Module Name :</label>
+          <label>SEO Keywords :</label>
+          <input
+            className="add-service-input"
+            value={sampleData.seo_keywords}
+            name="seo_keywords"
+            placeholder="SEO Keywords"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Title :</label>
           <input
             className="add-service-input"
             value={sampleData.moduleName}
@@ -217,17 +288,48 @@ export default function EditSample() {
         </div>
         <div>
           <label>Sample Category :</label>
-
-          <input
+          <select
             className="add-service-input"
             name="sample_category"
             value={sampleData.sample_category}
-            placeholder="Sample Category"
-            type="text"
             onChange={handleChange}
             required
-          />
+          >
+            <option value="" disabled>
+              Select a category
+            </option>
+            {categories.map((category) => (
+              <option key={category._id.$oid} value={category._id.$oid}>
+                {category.category}
+              </option>
+            ))}
+          </select>
         </div>
+        <div>
+          <label className="mt-4 block">Upload PDF:</label>
+          <input
+            className="add-service-input mt-2"
+            type="file"
+            name="sample_file"
+            accept="application/pdf"
+            onChange={handleChange2}
+          />
+
+          {sampleData.sample_file && (
+            <div className="mt-2">
+              <a
+                href={sampleData.sample_file}
+                title="Uploaded PDF"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="!text-blue-600 underline"
+              >
+                View Uploaded PDF
+              </a>
+            </div>
+          )}
+        </div>
+
         <div>
           <label>Description :</label>
           <Editor

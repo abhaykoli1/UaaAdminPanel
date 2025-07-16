@@ -4,9 +4,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light;
+  /* color: rgba(255, 255, 255, 0.87); */
+  /* background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -83,6 +83,7 @@ button:focus-visible {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #15222c;
 }
 .login-container {
   background: white;
@@ -91,7 +92,7 @@ button:focus-visible {
   padding-right: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  width: 300px;
+  width: 400px;
   text-align: center;
 }
 
@@ -111,7 +112,7 @@ label {
 }
 
 input {
-  width: 94%;
+  width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -190,7 +191,7 @@ button:hover {
   cursor: pointer;
   margin-left: 16px;
   margin-right: 18px;
-  margin-top: 8px;
+  margin-top: 0px;
 }
 
 .menu {

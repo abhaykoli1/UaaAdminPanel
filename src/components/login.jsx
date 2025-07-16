@@ -10,7 +10,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email === "vishalgoswami87015@gmail.com" && password === "7014544515") {
+    if (email === "admin@gmail.com" && password === "admin") {
       sessionStorage.setItem("isLogin", true);
       window.location.reload();
     } else {
@@ -24,20 +24,23 @@ const Login = () => {
   return (
     <section className="LoginPage">
       <div className="login-container">
-        <h2>UAA Login</h2>
+        <h2 className="font-bold text-2xl  pt-7   bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+          UAA Login
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <label>Email</label>
+            <label className="font-medium">Email :</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
+              className="w-full"
             />
           </div>
           <div className="input-group">
-            <label>Password</label>
+            <label className="font-medium">Password :</label>
             <input
               type="password"
               value={password}

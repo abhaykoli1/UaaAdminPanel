@@ -69,6 +69,7 @@ const AllBlogs = () => {
             <div key={index} className="card">
               <a
                 target="_blank"
+                title="Blogs"
                 href={`https://uniacademicassistance.in/blog/${blog.seo_title}`}
               >
                 <img

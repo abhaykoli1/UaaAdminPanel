@@ -15,6 +15,7 @@ export default function EditBlog() {
     bannerImg: "",
     seo_title: "",
     seo_description: "",
+    seo_keywords: "",
     service_category: "",
     cr_date: new Date().toISOString(),
     description: "",
@@ -98,28 +99,6 @@ export default function EditBlog() {
       <h2 className="add-service-title">Edit Blog</h2>
       <form onSubmit={handleSubmit} className="add-service-fo space-y-4">
         <div>
-          <label className="mb-1">Title :</label>{" "}
-          <input
-            className="add-service-input"
-            name="title"
-            value={blogData.title}
-            placeholder="Title"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label className="mb-1">Short Description :</label>
-          <input
-            className="add-service-input"
-            name="shortDec"
-            value={blogData.shortDec}
-            placeholder="Short Description"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
           <label className="mb-1">SEO Title :</label>
           <input
             className="add-service-input"
@@ -137,6 +116,39 @@ export default function EditBlog() {
             name="seo_description"
             value={blogData.seo_description}
             placeholder="SEO Description"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>SEO Keywords :</label>
+          <input
+            className="add-service-input"
+            value={blogData.seo_keywords}
+            name="seo_keywords"
+            placeholder="SEO Keywords"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label className="mb-1">Title :</label>{" "}
+          <input
+            className="add-service-input"
+            name="title"
+            value={blogData.title}
+            placeholder="Title"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label className="mb-1">Short Description :</label>
+          <input
+            className="add-service-input"
+            name="shortDec"
+            value={blogData.shortDec}
+            placeholder="Short Description"
             onChange={handleChange}
             required
           />

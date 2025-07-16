@@ -20,6 +20,7 @@ const AdminSection = ({ title, endpoint, path }) => {
   return (
     <a
       href={path}
+      title="Admin Section"
       className="!text-black w-full rounded shadow-lg border border-gray-300 bg-gray-100 p-7 flex items-center justify-between"
     >
       <p className="text-xl font-bold">{title}</p>

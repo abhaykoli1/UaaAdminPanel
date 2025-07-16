@@ -11,6 +11,7 @@ export default function AddBlog() {
     shortDec: "",
     description: "",
     service_category: "",
+    seo_keywords: "",
     // cr_date: new Date().toISOString(),
     bannerImg: "",
   });
@@ -114,6 +115,17 @@ export default function AddBlog() {
             value={blogData.seo_description}
             name="seo_description"
             placeholder="SEO Description"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>SEO Keywords :</label>
+          <input
+            className="add-blog-input"
+            value={blogData.seo_keywords}
+            name="seo_keywords"
+            placeholder="SEO Keywords"
             onChange={handleChange}
             required
           />

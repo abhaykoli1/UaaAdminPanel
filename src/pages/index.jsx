@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import AdminSection from "../components/adminSection";
 import config from "../config";
 import axios from "axios";
+import SampleCategoryManager from "../pages/sampleCategory";
+import HeroManager from "./HeroImages";
 
 export const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -55,6 +57,10 @@ export const AdminDashboard = () => {
           path={"/all-Samples"}
         />
       </div>
+      {/* <div className="grid lg:!grid-cols-2 md:!grid-cols-2 !grid-cols-1  w-full"> */}
+      <HeroManager />
+      {/* <SampleCategoryManager /> */}
+      {/* </div> */}
     </section>
   );
 };
